@@ -1,0 +1,59 @@
+import { Link as RouterLink } from 'react-router-dom';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import HistoryIcon from '@mui/icons-material/History';
+import { Menu, MenuItem, IconButton, ListItemIcon, ListItemText } from '@mui/material';
+
+const ProfileMenu = () => {
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  return (
+    <>
+      <IconButton
+        size="large"
+        aria-label="account of current user"
+        aria-controls={open ? 'profile-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+        color="inherit"
+      >
+        <AccountCircle />
+      </IconButton>
+      <Menu
+        id="profile-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        <MenuItem onClick={handleClose} component={RouterLink} to="/profile">
+          <ListItemIcon>
+            <AccountCircle fontSize="small" />
+          </ListItemIcon>
+          <ListItemText>My Profile</ListItemText>
+        </MenuItem>
+        <MenuItem onClick={handleClose} component={RouterLink} to="/profile/ai-history">
+           <ListItemIcon>
+             <HistoryIcon fontSize="small" />
+           </ListItemIcon>
+           <ListItemText>AI History</ListItemText>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <ListItemText>Logout</ListItemText>
+        </MenuItem>
+      </Menu>
+    </>
+  );
+}
+
+export default ProfileMenu; 
